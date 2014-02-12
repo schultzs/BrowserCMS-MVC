@@ -1,0 +1,97 @@
+﻿@model BrowserCMS_MVC.Models.ViewModels.TypeVM
+
+@{
+    ViewBag.Title = "Type Admin";
+}
+
+<fieldset class="formfield">
+    <legend>Type Administration</legend>
+    <span>Use this page to modify, add, or delete the different types associated with the contact types.</span>
+
+    <hr />
+
+    <table class="contacttype" style="width: 25%;">
+        <thead>
+            <tr>
+                <th>Address Type Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: addrTypes">
+            <tr data-bind="click: $parent.editAddrType">
+                <td data-bind="text: AddressTypeName"></td>
+                <td>
+                    <a data-bind="attr: { href: 'Type/Address/Edit/' + Id() }"><i class="fa fa-edit fa-lg"></i></a>
+                    <a data-bind="attr: { href: 'Type/Address/Delete/' + Id() }"><i class="fa fa-trash-o fa-lg"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <hr />
+
+    <table class="contacttype" style="width: 25%;">
+        <thead>
+            <tr>
+                <th>Email Type Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: emailTypes">
+            <tr data-bind="click: $parent.editEmailType">
+                <td data-bind="text: EmailTypeName"></td>
+                <td>
+                    <a data-bind="attr: { href: 'Type/Email/Edit/' + Id() }"><i class="fa fa-edit fa-lg"></i></a>
+                    <a data-bind="attr: { href: 'Type/Address/Delete/' + Id() }"><i class="fa fa-trash-o fa-lg"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr />
+
+    <table class="contacttype" style="width: 25%;">
+        <thead>
+            <tr>
+                <th>Phone Type Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: phoneTypes">
+            <tr data-bind="click: $parent.editPhoneType">
+                <td data-bind="text: PhoneTypeName"></td>
+                <td>
+                    <a data-bind="attr: { href: 'Type/Phone/Edit/' + Id() }"><i class="fa fa-edit fa-lg"></i></a>
+                    <a data-bind="attr: { href: 'Type/Address/Delete/' + Id() }"><i class="fa fa-trash-o fa-lg"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</fieldset>
+
+<script type="text/javascript">
+    var model = @Html.Raw(Json.Encode(Model));
+
+    function TypeViewModel(data) {
+        var self = this;
+
+        ko.mapping.fromJS(data, {}, self);
+
+        self.editAddrType = function (data) {
+            var d = data;
+        };
+
+        self.editEmailType = function (data) {
+            
+        };
+
+        self.editPhoneType = function (data) {
+            
+        };
+    }
+
+    $(function () {
+        ko.applyBindings(new TypeViewModel(model));
+    });
+</script>

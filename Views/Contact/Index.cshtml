@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BrowserCMS_MVC.Models.Contact>
+
+@{
+    ViewBag.Title = "Contacts";
+}
+
+<h2>Contacts</h2>
+
+<table class="contacttype" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+            <th>@Html.DisplayNameFor(model => model.DateLastContacted)</th>
+            <th>@Html.DisplayNameFor(model => model.DateCreated)</th>
+            <th>@Html.DisplayNameFor(model => model.DateModified)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateLastContacted)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateModified)</td>
+                <td>
+                    <a href='@Url.Action("Edit", new { id = item.Company.Id, contactId = item.Id })' title="Edit"><i class="fa fa-edit fa-lg"></i></a>
+                    <a href='@Url.Action("Details", new { id = item.Company.Id, contactId = item.Id })' title="Details"><i class="fa fa-search fa-lg"></i></a>
+                    <a href='@Url.Action("Delete", new { id = item.Company.Id, contactId = item.Id })' title="Delete"><i class="fa fa-trash-o fa-lg"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Back", "Details", new { controller = "Company", id = @ViewBag.Id }, new { @class = "btn btn-default" })

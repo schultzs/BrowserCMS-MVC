@@ -1,0 +1,153 @@
+﻿@model BrowserCMS_MVC.Models.ViewModels.ContactVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="details">
+    <h4>Contact Details - <span>@Model.FirstName @Model.LastName</span></h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.FirstName)</dt>
+        <dd>@Html.DisplayFor(model => model.FirstName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.LastName)</dt>
+        <dd>@Html.DisplayFor(model => model.LastName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.DateLastContacted)</dt>
+        <dd>@Html.DisplayFor(model => model.DateLastContacted)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.DateCreated)</dt>
+        <dd>@Html.DisplayFor(model => model.DateCreated)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.DateModified)</dt>
+        <dd>@Html.DisplayFor(model => model.DateModified)</dd>
+    </dl>
+</div>
+<p>
+    <a href='@Url.Action("Edit", new { id = Model.CompanyId, contactId = Model.Id })' class="btn btn-default">Edit</a>
+    <a href='@Url.Action("Details", "Company", new { id = Model.CompanyId })' class="btn btn-default">Back</a>
+</p>
+
+<fieldset class="formfield">
+    <legend>Contact Information</legend>
+
+    <div class="horizontalmenu cl">
+        <ul class="tablist">
+            <li class="tabitem" data-bind="click: function() { setSelectedView('address-template') }"><a id="address-template-a" class="active">Addresses</a></li>
+            <li class="tabitem" data-bind="click: function() { setSelectedView('email-template') }"><a id="email-template-a">Email Addresses</a></li>
+            <li class="tabitem" data-bind="click: function() { setSelectedView('phone-template') }"><a id="phone-template-a">Phone Numbers</a></li>
+        </ul>
+    </div>
+
+    <div data-bind="template: { name: function() { return selectedView(); } }"></div>
+</fieldset>
+
+<script type="text/html" id="address-template">
+    <table class="contacttype">
+        <thead>
+            <tr>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip Code</th>
+                <th>Address Type</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody data-bind="foreach: Addresses">
+            <tr>
+                <td data-bind="text: AddressLine1"></td>
+                <td data-bind="text: AddressLine2"></td>
+                <td data-bind="text: City"></td>
+                <td data-bind="text: State"></td>
+                <td data-bind="text: ZipCode"></td>
+                <td data-bind="text: AddressType.AddressTypeName"></td>
+                <td>
+                    <a data-bind="attr: { href: '/Address/Edit/' + CompanyId() + '?contactId=' + ContactId() + '&addrId=' + Id() }" title="Edit"><i class="fa fa-edit fa-lg"></i></a>
+                    <a data-bind="attr: { href: '/Address/Delete/' + CompanyId() + '?contactId=' + ContactId() + '&addrId=' + Id() }" title="Delete"><i class="fa fa-trash-o fa-lg"></i></a>
+                </td>
+            </tr>
+        </tbody>
+        <!-- ko ifnot: $parent.Addresses().length > 0 -->
+        <tbody>
+            <tr>
+                <td colspan="7" class="noentries">No physical addresses for contact @Model.FirstName.</td>
+            </tr>
+        </tbody>
+        <!-- /ko -->
+    </table>
+    <a href='@Url.Action("Create", "Address", new { id = Model.CompanyId, contactId = Model.Id })' class="btn btn-default">Add&nbsp;<i class="fa fa-plus-circle fa-lg"></i></a>
+</script>
+
+<script type="text/html" id="email-template">
+    <table class="contacttype">
+        <thead>
+            <tr>
+                <th>Email Address</th>
+                <th>Email Type</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.EmailAddresses.Count() == 0)
+            {
+                <tr><td colspan="2" class="noentries">No email addresses for contact @Model.FirstName.</td></tr>
+            }
+            @foreach (var item in Model.EmailAddresses)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.EmailAddress)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EmailType.EmailTypeName)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</script>
+
+<script type="text/html" id="phone-template">
+    <table class="contacttype">
+        <thead>
+            <tr>
+                <th>Phone Number</th>
+                <th>Phone Type</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.PhoneNumbers.Count() == 0)
+            {
+                <tr><td colspan="2" class="noentries">No phone numbers for contact @Model.FirstName.</td></tr>
+            }
+            @foreach (var item in Model.PhoneNumbers)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneType.PhoneTypeName)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</script>
+
+<script type="text/javascript">
+    var viewModel = @Html.Raw(Json.Encode(Model));
+
+    function ContactViewModel(data) {
+        var self = this;
+
+        self.selectedView = ko.observable("address-template");
+
+        ko.mapping.fromJS(data, {}, self);
+
+        self.setSelectedView = function (name) {
+            $('#' + self.selectedView() + '-a').toggleClass('active');
+            self.selectedView(name);
+            $('#' + name + '-a').toggleClass('active');
+        };
+    }
+
+    ko.applyBindings(new ContactViewModel(viewModel));
+</script>

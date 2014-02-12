@@ -1,0 +1,70 @@
+﻿@model BrowserCMS_MVC.Models.ViewModels.ContactVM
+
+@{
+    ViewBag.Title = "Edit Contact";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <fieldset>
+            <legend>Edit Contact</legend>
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CompanyId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.FirstName)
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateLastContacted, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.DateLastContacted, new { @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.DateLastContacted)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateCreated, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.DateCreated, new { @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.DateCreated)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateModified, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.DateModified, new { @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.DateModified)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 left">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                    <a href='@Url.Action("Details", new { id = Model.CompanyId, contactId = Model.Id })' class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

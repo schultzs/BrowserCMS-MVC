@@ -1,0 +1,196 @@
+﻿html {
+    margin: 0 auto;
+    width: 1024px;
+}
+
+body {
+    /*padding-top: 50px;*/
+    padding-bottom: 20px;
+}
+
+h4 {
+    font-size: 1.75em;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding: 15px;
+}
+
+footer p {
+    padding: 0 15px;
+}
+
+footer > hr {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.cl:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+/* Horizontal Tab Menu */
+.horizontalmenu {
+    margin: 0 auto;
+    padding: 0;
+}
+
+    .horizontalmenu ul {
+        margin-bottom: 1em;
+        padding: 0;
+        float: left;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    * html .horizontalmenu ul { /*IE only rule. Delete extra margin-bottom*/
+        margin-bottom: 0;
+    }
+
+        .horizontalmenu ul li {
+            display: inline;
+        }
+
+            .horizontalmenu ul li a {
+                float: left;
+                color: gray;
+                font-weight: bold;
+                border-bottom: 4px solid lightblue;
+                padding: 2px 6px 4px 6px;
+                margin: 0 2px;
+                text-decoration: none;
+            }
+
+                .horizontalmenu ul li a:hover {
+                    color: black;
+                    border-bottom: 4px solid darkblue;
+                }
+
+                .horizontalmenu ul li a.active {
+                    color: black;
+                    border-bottom: 4px solid blue;
+                }
+
+
+/* Button link layout */
+.buttonlink a {
+    /*display: inline-block;*/
+    border: 1px solid;
+    background-color: lightblue;
+    padding: 2px 5px;
+    text-decoration: none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+    .buttonlink a:hover {
+    }
+
+
+/* Contact Type table layouts */
+table.contacttype {
+    width: 75%;
+    margin-bottom: 5px;
+}
+
+    table.contacttype thead {
+        border-bottom: 2px solid blue;
+    }
+
+    table.contacttype th,
+    table.contacttype td {
+        padding: 5px;
+    }
+
+    table.contacttype tbody tr:hover {
+        background-color: lightblue;
+    }
+
+
+
+
+/* Input Display definitions */
+.formfield {
+    display: inline-block;
+    width: 100%;
+    /*float: left;*/
+    /*width: 160px;*/
+    /*overflow: hidden;*/
+    /*clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;*/
+}
+
+    .formfield .formdisplay,
+    .formfield .formeditor,
+    .formfield .fromvalidation {
+        padding: 5px;
+        float: left;
+    }
+
+        .formfield .formdisplay label,
+        .formfield .formeditor input,
+        .formfield .formvalidation span {
+            display: block;
+            vertical-align: middle;
+        }
+
+        .formfield .formdisplay label:after {
+            content: ':';
+        }
+
+.noentries {
+    width: 75%;
+    padding: 10px;
+    font-style: italic;
+    color: grey;
+}
+
+.details > h4 > span {
+    color: #428bca;
+    font-weight: bold;
+}
